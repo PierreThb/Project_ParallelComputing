@@ -1,5 +1,5 @@
 main: main.c
-	gcc main.c -o test -lm
+	gcc main_S_2P.c -o main_serial -lm
 
 #main: main.c thread_mean_calc.c thread_mean_calc.o
 #	gcc main.c thread_mean_calc.o -lpthread -o main

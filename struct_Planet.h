@@ -2,8 +2,9 @@ typedef struct Planet Planet;
 
 struct Planet
 {
-	int masse;
+	float masse;
 	float pos_x;
 	float pos_y;
-	float velocity;
+	float velocity_x;
+	float velocity_y;
 };
