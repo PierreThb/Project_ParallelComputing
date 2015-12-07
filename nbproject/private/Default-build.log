@@ -1,0 +1,1 @@
+gcc main_S_2P.c -o main_serial `pkg-config --cflags --libs gtk+-2.0` -lm
