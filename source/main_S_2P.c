@@ -9,12 +9,11 @@
 #define G 1
 #define DELTA 0.1
 
-extern float x_diff, y_diff, dist, dist_cubed, temp;
+extern float temp;
 extern float forcesX[N][N]; //array which contained all forces on X direction betwin planets
 extern float forcesY[N][N]; //array which contained all forces on Y direction betwin planets
 extern float posX[N], posY[N]; //arrays which contained all X and Y positions
 extern float masses[N];
-
 
 int main(int argc, char **argv) {
 
@@ -23,25 +22,16 @@ int main(int argc, char **argv) {
     int n = N;
     float deltaT = DELTA;
     Planet Q, K; //declare 2 struct Planet
-
+    char str[10], str2[10], str3[10], str4[10], str5[10], str6[10], str7[10], str8[10];
 
     //    float g = G;
     //    float forceqkX, forceqkY;
 
-    /* initialize PLanet */
-    Q.masse = 5.2;
-    Q.pos_x = 5.3;
-    Q.pos_y = 12.2;
-    Q.velocity_x = 0.0;
-    Q.velocity_y = 5.0;
-    K.masse = 5.3;
-    K.pos_x = 7.2;
-    K.pos_y = 12.2;
-    Q.velocity_x = 0.0;
-    K.velocity_y = 6.0;
+    /* Iniialize PLanets */
+    initializeP(Q, 5.2, 5.3, 12.2, 0.0, 5.0);
+    initializeP(K, 5.3, 7.2, 12.2, 0.0, 6.0);
 
-    char str[10], str2[10], str3[10], str4[10], str5[10], str6[10], str7[10], str8[10];
-
+    /* Get informations of planets to display in the window */
     sprintf(str, "%f", Q.pos_x);
     sprintf(str2, "%f", Q.pos_y);
     sprintf(str3, "%f", Q.velocity_x);
@@ -52,7 +42,7 @@ int main(int argc, char **argv) {
     sprintf(str8, "%f", K.velocity_y);
 
 
-    /***  GTK  ***/
+    /***  GTK ELEMENTS ***/
 
     GtkBuilder *builder;
     GtkWidget *window;
@@ -116,31 +106,22 @@ int main(int argc, char **argv) {
     /***   END GTK  ***/
 
     /* put position of all planets in the array*/
-    posX[0] = Q.pos_x;
-    posX[1] = K.pos_x;
-    posY[0] = Q.pos_y;
-    posY[1] = K.pos_y;
+    addPos(posX, Q.pos_x, 0);
+    addPos(posX, K.pos_x, 1);
+    addPos(posY, Q.pos_x, 0);
+    addPos(posY, K.pos_x, 1);
 
     /* put masse of all planets in the arrey */
-    masses[0] = Q.masse;
-    masses[1] = K.masse;
+    addMass(masses, Q.masse, 0);
+    addMass(masses, K.masse, 1);
 
     /* ******** */
 
     /* to initialize all forces at 0 */
-    for (q = 0; q < n; q++) {
-        forcesX[q][q] = 0;
-        forcesY[q][q] = 0;
-        if (q == 0) {
-            forcesX[q + 1][q] = 0;
-            forcesX[q][q + 1] = 0;
-            forcesY[q + 1][q] = 0;
-            forcesY[q][q + 1] = 0;
-        }
-    }
+    initForce(forcesX, forcesY);
 
+    /* Compute */
     forces_calc(Q, K);
-
 
 }
 

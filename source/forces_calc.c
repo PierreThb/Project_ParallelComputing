@@ -9,7 +9,7 @@ extern const float masses[N];
 void forces_calc(Planet Q, Planet K) {
     int q, k, n = N, g = G;
     float deltaT = DELTA;
-    float forceqkX, forceqkY;
+    float forceqkX, forceqkY, x_diff, y_diff, dist, dist_cubed;
 
     /* Compute forces */
     for (q = 0; q < n; q++) {
