@@ -8,6 +8,8 @@
 #ifndef FUNCTIONS_H
 #define	FUNCTIONS_H
 #define N 2
+#define G 1
+#define DELTA 0.1
 
 #ifdef	__cplusplus
 extern "C" {

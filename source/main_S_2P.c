@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include <gtk/gtk.h>
-#include "../header/struct_Planet.h"
+#include "struct_Planet.c"
 #include "../header/forces_calc.h"
 
 #define N 2
 #define G 1
 #define DELTA 0.1
 
-extern float temp;
 extern float forcesX[N][N]; //array which contained all forces on X direction betwin planets
 extern float forcesY[N][N]; //array which contained all forces on Y direction betwin planets
 extern float posX[N], posY[N]; //arrays which contained all X and Y positions
@@ -18,18 +17,13 @@ extern float masses[N];
 int main(int argc, char **argv) {
 
     /* Declarations */
-    int q, k;
-    int n = N;
-    float deltaT = DELTA;
-    Planet Q, K; //declare 2 struct Planet
+    Planet Q = initializeP(Q, 5.2, 5.3, 12.2, 0.0, 5.0);
+    Planet K = initializeP(K, 5.3, 7.2, 12.2, 0.0, 6.0);
     char str[10], str2[10], str3[10], str4[10], str5[10], str6[10], str7[10], str8[10];
 
-    //    float g = G;
-    //    float forceqkX, forceqkY;
-
     /* Iniialize PLanets */
-    initializeP(Q, 5.2, 5.3, 12.2, 0.0, 5.0);
-    initializeP(K, 5.3, 7.2, 12.2, 0.0, 6.0);
+    
+    
 
     /* Get informations of planets to display in the window */
     sprintf(str, "%f", Q.pos_x);

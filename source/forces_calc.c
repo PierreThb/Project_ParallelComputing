@@ -1,6 +1,5 @@
 #include "../header/forces_calc.h"
 
-extern float x_diff, y_diff, dist, dist_cubed, temp;
 extern float forcesX[N][N]; //array which contained all forces on X direction betwin planets
 extern float forcesY[N][N]; //array which contained all forces on Y direction betwin planets
 extern float posX[N], posY[N]; //arrays which contained all X and Y positions
@@ -9,7 +8,7 @@ extern const float masses[N];
 void forces_calc(Planet Q, Planet K) {
     int q, k, n = N, g = G;
     float deltaT = DELTA;
-    float forceqkX, forceqkY, x_diff, y_diff, dist, dist_cubed;
+    float forceqkX, forceqkY, x_diff, y_diff, dist, dist_cubed, temp;
 
     /* Compute forces */
     for (q = 0; q < n; q++) {
@@ -54,4 +53,4 @@ void forces_calc(Planet Q, Planet K) {
             printf("Arriver fin fonction\n");
         }
     }
-}
+};

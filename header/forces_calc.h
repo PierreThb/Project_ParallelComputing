@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "struct_Planet.h"
-#
 
 #ifndef FORCES_CALC_H
 #define	FORCES_CALC_H
