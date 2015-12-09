@@ -1,4 +1,4 @@
-typedef struct Planet Planet;
+typedef struct Planet planet;
 struct Planet;
 
-Planet initializeP(Planet P, float masse, float posX, float posY, float vX, float vY);
+planet initializeP(planet P, float masse, float posX, float posY, float vX, float vY);

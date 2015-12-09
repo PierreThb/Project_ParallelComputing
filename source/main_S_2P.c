@@ -17,8 +17,8 @@ extern float masses[N];
 int main(int argc, char **argv) {
 
     /* Declarations */
-    Planet Q = initializeP(Q, 5.2, 5.3, 12.2, 0.0, 5.0);
-    Planet K = initializeP(K, 5.3, 7.2, 12.2, 0.0, 6.0);
+    planet Q = initializeP(Q, 5.2, 5.3, 12.2, 0.0, 5.0);
+    planet K = initializeP(K, 5.3, 7.2, 12.2, 0.0, 6.0);
     char str[10], str2[10], str3[10], str4[10], str5[10], str6[10], str7[10], str8[10];
 
     /* Iniialize PLanets */

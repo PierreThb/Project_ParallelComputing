@@ -8,7 +8,7 @@ struct Planet{
     float velocity_y;
 }Planet;
 
-Planet initializeP(Planet P,float masse, float posX, float posY, float vX, float vY) {
+planet initializeP(planet P,float masse, float posX, float posY, float vX, float vY) {
     /* initialize PLanet */
     P.masse = masse;
     P.pos_x = posX;

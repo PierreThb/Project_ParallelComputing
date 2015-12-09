@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-void forces_calc(Planet Q, Planet K);
+void forces_calc(planet Q, planet K);
 
 
 #ifdef	__cplusplus

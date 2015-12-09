@@ -5,7 +5,7 @@ extern float forcesY[N][N]; //array which contained all forces on Y direction be
 extern float posX[N], posY[N]; //arrays which contained all X and Y positions
 extern const float masses[N];
 
-void forces_calc(Planet Q, Planet K) {
+void forces_calc(planet Q, planet K) {
     int q, k, n = N, g = G;
     float deltaT = DELTA;
     float forceqkX, forceqkY, x_diff, y_diff, dist, dist_cubed, temp;
