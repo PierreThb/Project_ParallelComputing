@@ -27,16 +27,20 @@ GtkWidget **tabLabel;
 GtkBuilder *builder;
 char **name;
 
-void displayInfo(GtkWidget *widget, gpointer data) {
-    printf("passé 1\n");
-    /* Compute */
-    forces_calc(); //function forces_calc in file forces_calc.c
+void printest(planet* P) {
+    printf("m=%f, x=%f, y=%f, vx=%f, vy=%f\n", P->masse, P->pos_x, P->pos_y, P->velocity_x, P->velocity_y);
+};
 
-    compute_all_new_posX(Q, K, A, B); //function in file forces_calc.c
+void displayInfo(GtkWidget *widget, gpointer data) {
+    /* Compute */
+
+    forces_calc(forcesX, forcesY, posX, posY, masses); //function forces_calc in file forces_calc.c
+
+    compute_all_new_posX(Q, K, A, B); //function in file forces_calc.c    
     compute_all_new_posY(Q, K, A, B); //function in file forces_calc.c
     compute_all_new_velX(Q, K, A, B); //function in file forces_calc.c
     compute_all_new_velY(Q, K, A, B); //function in file forces_calc.c
-    printf("passé 2\n");
+    //    printest(Q);
     /* Get informations of planets to display in the window */
     /* Planet Q */
     initStr(str, str2, str3, str4, Q); //function initStr in file functions.c
@@ -46,7 +50,7 @@ void displayInfo(GtkWidget *widget, gpointer data) {
     initStr(str9, str10, str11, str12, A);
     /* Planet B */
     initStr(str13, str14, str15, str16, B);
-    printf("passé 3\n");
+
     /* Display all informations in the label of the window */
     setLabel(tabLabel[0], str); //function setLabel in file functionsGTK.c
     setLabel(tabLabel[1], str2);
@@ -64,18 +68,38 @@ void displayInfo(GtkWidget *widget, gpointer data) {
     setLabel(tabLabel[13], str14);
     setLabel(tabLabel[14], str15);
     setLabel(tabLabel[15], str16);
-    printf("passé 4\n");
 };
 
 int main(int argc, char **argv) {
     int i = 0;
     /* Declarations */
-    Q = initializeP(5.2, 5.3, 12.2, 0.0, 5.0);
-    K = initializeP(5.3, 7.2, 12.2, 0.0, 6.0);
-    A = initializeP(5.4, 8.3, 12.2, 0.0, 5.5);
-    B = initializeP(5.5, 4.5, 12.2, 0.0, 5.4);
+    Q = initializeP(5.2, 5.3, 2.1, 1, 5.0);
+    K = initializeP(5.3, 7.2, 4.5, 1, 6.0);
+    A = initializeP(5.4, 8.3, 12.2, 1, 5.5);
+    B = initializeP(5.5, 4.5, 8.6, 1, 5.4);
     tabLabel = malloc(sizeof (GtkWidget)*16); //Array of GtkWidget LAbel for the window
     name = (char*[]){"res_posXQ", "res_posYQ", "res_velXQ", "res_velYQ", "res_posXK", "res_posYK", "res_velXK", "res_velYK", "res_posXA", "res_posYA", "res_velXA", "res_velYA", "res_posXB", "res_posYB", "res_velXB", "res_velYB"}; //array which contain the name of different element of the window
+
+    /* put position of all planets in the array*/
+    /* positions on X */
+    addPos(posX, Q->pos_x, 0); //function addPos in file functions.c
+    addPos(posX, K->pos_x, 1);
+    addPos(posX, A->pos_x, 2);
+    addPos(posX, B->pos_x, 3);
+    /* positions on Y */
+    addPos(posY, Q->pos_y, 0);
+    addPos(posY, K->pos_y, 1);
+    addPos(posY, A->pos_y, 2);
+    addPos(posY, B->pos_y, 3);
+
+    /* put masse of all planets in the arrey */
+    addMass(masses, Q->masse, 0); //function addMass in file functions.c
+    addMass(masses, K->masse, 1);
+    addMass(masses, A->masse, 2);
+    addMass(masses, B->masse, 3);
+
+    /* to initialize all forces at 0 */
+    initForce(forcesX, forcesY); //function initForce in file functions.c
 
     /* Get informations of planets to display in the window */
     /* Planet Q */
@@ -149,26 +173,7 @@ int main(int argc, char **argv) {
 
     /***   END GTK  ***/
 
-    /* put position of all planets in the array*/
-    /* positions on X */
-    addPos(posX, Q->pos_x, 0); //function addPos in file functions.c
-    addPos(posX, K->pos_x, 1);
-    addPos(posX, A->pos_x, 2);
-    addPos(posX, B->pos_x, 3);
-    /* positions on Y */
-    addPos(posY, Q->pos_y, 0);
-    addPos(posY, K->pos_y, 1);
-    addPos(posY, A->pos_y, 2);
-    addPos(posY, B->pos_y, 3);
 
-    /* put masse of all planets in the arrey */
-    addMass(masses, Q->masse, 0); //function addMass in file functions.c
-    addMass(masses, K->masse, 1);
-    addMass(masses, A->masse, 2);
-    addMass(masses, B->masse, 3);
-
-    /* to initialize all forces at 0 */
-    initForce(forcesX, forcesY); //function initForce in file functions.c
 
 
 

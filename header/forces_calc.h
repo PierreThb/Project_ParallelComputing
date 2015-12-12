@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-void forces_calc();
+void forces_calc(float forcesX[N][N], float forcesY[N][N], float *posX, float *posY, float *masses);
 float position_cacl(float pos, float vel, float deltat);
 float velocity_calc(float force, float masse, float deltat, float vel);
 float total_forcesX(int index);
