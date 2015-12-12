@@ -5,6 +5,7 @@
       <df name="header">
         <in>forces_calc.h</in>
         <in>functions.h</in>
+        <in>functionsGTK.h</in>
         <in>struct_Planet.h</in>
       </df>
       <df name="source">
@@ -12,6 +13,7 @@
         </df>
         <in>forces_calc.c</in>
         <in>functions.c</in>
+        <in>functionsGTK.c</in>
         <in>globale.c</in>
         <in>main_S_2P.c</in>
         <in>struct_Planet.c</in>

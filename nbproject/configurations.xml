@@ -5,10 +5,12 @@
       <df name="header">
         <in>forces_calc.h</in>
         <in>functions.h</in>
+        <in>functionsGTK.h</in>
       </df>
       <df name="source">
         <in>forces_calc.c</in>
         <in>functions.c</in>
+        <in>functionsGTK.c</in>
         <in>globale.c</in>
         <in>main_S_2P.c</in>
         <in>struct_Planet.c</in>
@@ -64,9 +66,13 @@
       </item>
       <item path="header/functions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="header/functionsGTK.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="source/forces_calc.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="source/functions.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="source/functionsGTK.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="source/globale.c" ex="false" tool="0" flavor2="0">
       </item>

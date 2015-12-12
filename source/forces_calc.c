@@ -5,52 +5,142 @@ extern float forcesY[N][N]; //array which contained all forces on Y direction be
 extern float posX[N], posY[N]; //arrays which contained all X and Y positions
 extern const float masses[N];
 
-void forces_calc(planet Q, planet K) {
-    int q, k, n = N, g = G;
-    float deltaT = DELTA;
-    float forceqkX, forceqkY, x_diff, y_diff, dist, dist_cubed, temp;
+void forces_calc() {
+    int i, j, n = N, g = G;
+    float forceijX, forceijY, x_diff, y_diff, dist, dist_cubed, temp;
 
     /* Compute forces */
-    for (q = 0; q < n; q++) {
-        for (k = q + 1; k < n; k++) {
-            x_diff = posX[q] - posX[k]; // = -1.9
-            y_diff = posY[q] - posY[k]; // = 0
-            dist = sqrt(x_diff * x_diff + y_diff * y_diff); //= 1.9
-            dist_cubed = dist * dist*dist; // = 6.859
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            x_diff = posX[i] - posX[j];
+            y_diff = posY[i] - posY[j];
+            dist = sqrt(x_diff * x_diff + y_diff * y_diff);
+            dist_cubed = dist * dist*dist;
 
-            forceqkX = ((-g * masses[q] * masses[k]) / dist_cubed) * x_diff; // = 7.634		
-            forceqkY = -g * masses[q] * masses[k] / dist_cubed * y_diff; // = 0
+            forceijX = ((-g * masses[i] * masses[j]) / dist_cubed) * x_diff; 	
+            forceijY = ((-g * masses[i] * masses[j]) / dist_cubed) * y_diff; 
 
-            forcesX[k][q] += forceqkX;
-            forcesY[k][q] += forceqkY;
-            forcesX[q][k] -= forceqkX;
-            forcesY[q][k] -= forceqkY;
-
-            /* Compute new X position  */
-            temp = Q.pos_x + (Q.velocity_x * deltaT);
-            Q.pos_x = temp;
-            temp = temp = K.pos_x + (K.velocity_x * deltaT);
-            K.pos_x = temp;
-
-            /* Compute new X velocity */
-            temp = ((forcesX[k][q] / masses[q]) * deltaT) + Q.velocity_x;
-            Q.velocity_x = temp;
-            temp = ((forcesX[q][k] / masses[k]) * deltaT) + K.velocity_x;
-            K.velocity_x = temp;
-
-            /* Compute new Y position  */
-            temp = Q.pos_y + (Q.velocity_y * deltaT);
-            Q.pos_y = temp;
-            temp = temp = K.pos_y + (K.velocity_y * deltaT);
-            K.pos_y = temp;
-
-            /* Compute new Y velocity */
-            temp = ((forcesY[k][q] / masses[q]) * deltaT) + Q.velocity_y;
-            Q.velocity_y = temp;
-            temp = ((forcesY[q][k] / masses[k]) * deltaT) + K.velocity_y;
-            K.velocity_y = temp;
-
-            printf("Arriver fin fonction\n");
-        }
+            forcesX[i][j] += forceijX;
+            forcesY[i][j] += forceijY;
+            forcesX[j][i] -= forceijX;
+            forcesY[j][i] -= forceijY;
+        }     
     }
 };
+
+float position_cacl(float pos, float vel, float deltat) {
+    float val = pos + (vel * deltat);
+    return val;
+};
+
+float velocity_calc(float totalForces, float masse, float deltat, float vel) {
+    float val = ((totalForces / masse) * deltat) + vel;
+    return val;
+};
+
+float total_forcesX(int index) {
+    if (index == 0) {
+        float val = forcesX[index][0] + forcesX[index][1] + forcesX[index][2] + forcesX[index][3];
+        return val;
+    } else if (index == 1) {
+        float val = forcesX[index][0] + forcesX[index][1] + forcesX[index][2] + forcesX[index][3];
+        return val;
+    } else if (index == 2) {
+        float val = forcesX[index][0] + forcesX[index][1] + forcesX[index][2] + forcesX[index][3];
+        return val;
+    } else {
+        float val = forcesX[index][0] + forcesX[index][1] + forcesX[index][2] + forcesX[index][3];
+        return val;
+    }
+};
+
+float total_forcesY(int index) {
+    if (index == 0) {
+        float val = forcesY[index][0] + forcesY[index][1] + forcesY[index][2] + forcesY[index][3];
+        return val;
+    } else if (index == 1) {
+        float val = forcesY[index][0] + forcesY[index][1] + forcesY[index][2] + forcesY[index][3];
+        return val;
+    } else if (index == 2) {
+        float val = forcesY[index][0] + forcesY[index][1] + forcesY[index][2] + forcesY[index][3];
+        return val;
+    } else {
+        float val = forcesY[index][0] + forcesY[index][1] + forcesY[index][2] + forcesY[index][3];
+        return val;
+    }
+};
+
+void compute_all_new_velX(planet* p1, planet* p2, planet* p3, planet* p4) {
+    float temp;
+    float deltat = DELTA;
+    float total_force;
+
+    total_force = total_forcesX(0);
+    temp = velocity_calc(total_force, p1->masse, deltat, p1->velocity_x);
+    p1->velocity_x = temp;
+
+    total_force = total_forcesX(1);
+    temp = velocity_calc(total_force, p2->masse, deltat, p2->velocity_x);
+    p2->velocity_x = temp;
+    
+    total_force = total_forcesX(2);
+    temp = velocity_calc(total_force, p3->masse, deltat, p3->velocity_x);
+    p3->velocity_x = temp;
+    
+    total_force = total_forcesX(3);
+    temp = velocity_calc(total_force, p4->masse, deltat, p4->velocity_x);
+    p4->velocity_x = temp;
+
+};
+
+void compute_all_new_velY(planet* p1, planet* p2, planet* p3, planet* p4) {
+    float temp;
+    float deltat = DELTA;
+    float total_force;
+
+    total_force = total_forcesY(0); // totalforce for planet Q
+    temp = velocity_calc(total_force, p1->masse, deltat, p1->velocity_y);
+    p1->velocity_y = temp;
+
+    total_force = total_forcesY(1); //totalforce for planet K
+    temp = velocity_calc(total_force, p2->masse, deltat, p2->velocity_y);
+    p2->velocity_y = temp;
+
+    total_force = total_forcesY(2);//totalforce for planet A
+    temp = velocity_calc(total_force, p3->masse, deltat, p3->velocity_y);
+    p3->velocity_y = temp;
+
+    total_force = total_forcesY(3);//totalforce for planet B
+    temp = velocity_calc(total_force, p4->masse, deltat, p4->velocity_y);
+    p4->velocity_y = temp;
+
+};
+
+void compute_all_new_posX(planet* p1, planet* p2, planet* p3, planet* p4) {
+    float temp;
+    float deltat = DELTA;
+
+    temp = position_cacl(p1->pos_x, p1->velocity_x, deltat);
+    p1->pos_x = temp;
+    temp = position_cacl(p2->pos_x, p2->velocity_x, deltat);
+    p2->pos_x = temp;
+    temp = position_cacl(p3->pos_x, p3->velocity_x, deltat);
+    p3->pos_x = temp;
+    temp = position_cacl(p4->pos_x, p4->velocity_x, deltat);
+    p4->pos_x = temp;
+};
+
+void compute_all_new_posY(planet* p1, planet* p2, planet* p3, planet* p4) {
+    float temp;
+    float deltat = DELTA;
+
+    temp = position_cacl(p1->pos_y, p1->velocity_y, deltat);
+    p1->pos_y = temp;
+    temp = position_cacl(p2->pos_y, p2->velocity_y, deltat);
+    p2->pos_y = temp;
+    temp = position_cacl(p3->pos_y, p3->velocity_y, deltat);
+    p3->pos_y = temp;
+    temp = position_cacl(p4->pos_y, p4->velocity_y, deltat);
+    p4->pos_y = temp;
+};
+
